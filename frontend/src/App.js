@@ -1,38 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
-import Footer from './Layouts/Footer';
+import React from 'react';
 import Header from './Layouts/Header';
-import Home from './Home';
+import Footer from './Layouts/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+import Login from './Components/User/Login';
+import Register from './Components/User/Register';
+import Profile from './Components/User/Profile';
+import UpdateProfile from './Components/User/UpdateProfile';
+import ForgotPassword from './Components/User/ForgotPassword';
+import NewPassword from './Components/User/NewPassword';
+import UpdatePassword from './Components/User/UpdatePassword';
+// import Dashboard from './Admin/Dashboard';
+// import Home from './Components/Home';
+import ProtectedRoute from './Components/Route/ProtectedRoute';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
-      <Header />
+        <Header />
+
         <Routes>
-        <Route path="/" element={<Home />} exact="true" />
+          {/* <Route path="/" element={<Home />} exact="true" /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/me" element={<Profile />} />
+          <Route path="/me/update" element={<UpdateProfile />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/password/reset/:token" element={<NewPassword />} />
+          <Route path="/password/update" element={<UpdatePassword />} />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                {/* <Dashboard /> */}
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <Footer />
       </Router>

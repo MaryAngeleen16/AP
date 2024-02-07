@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // import Sidebar from './Sidebar';
 import { MDBDataTable } from 'mdbreact';
 // import './CRUD.css';
+import 'mdbreact/dist/css/mdb.css';
+
 
 const CategoryDataTable = () => {
   const [categories, setCategories] = useState([]);
@@ -91,8 +93,8 @@ const CategoryDataTable = () => {
         <div className="col-md-3">
           {/* <Sidebar /> */}
         </div>
-        <div className="col-md-9" style={{ color: '#A97155' }}>
-          <h2 className="title-crud">List of Categories</h2>
+        <div className="col-md-9" >
+          <h2>List of Categories</h2>
           <Link to="/category/create" className="btn btn-primary mb-3">
             Create Category
           </Link>

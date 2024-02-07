@@ -12,7 +12,7 @@ import UpdatePassword from './Components/User/UpdatePassword';
 // import Dashboard from './Admin/Dashboard';
 // import Home from './Components/Home';
 
-import CategoryList from './Components/Admin/Category';
+import CategoryList from './Components/Admin/CategoryList';
 import CreateCategory from './Components/Admin/CreateCategory';
 import UpdateCategory from './Components/Admin/UpdateCategory';
 import ProtectedRoute from './Components/Route/ProtectedRoute';

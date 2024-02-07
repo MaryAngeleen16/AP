@@ -1,11 +1,12 @@
 // Home.js
 import React from 'react';
-
+// import BannerImage from "./Public/images/home.png"
 const Home = () => {
     return (
-                <div>
-                    <h1>Welcome to our Pregnant Web!</h1>
-                    <p>This is the content section, where you can see the introduction of our website.</p>
+                <div className="home-banner-container">
+                   <div className="home-bannerImage-container">
+                   <img src="/images/home.png" alt="Banner" />
+                   </div>
                 </div>
     );
 };

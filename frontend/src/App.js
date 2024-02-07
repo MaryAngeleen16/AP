@@ -10,7 +10,7 @@ import ForgotPassword from './Components/User/ForgotPassword';
 import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
 // import Dashboard from './Admin/Dashboard';
-// import Home from './Components/Home';
+import Home from './Home.js';
 
 import CategoryList from './Components/Admin/CategoryList';
 import CreateCategory from './Components/Admin/CreateCategory';

@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const auth = require('./routes/auth');
+const categories = require('./routes/category');
 
 const app = express();
 
@@ -13,7 +14,10 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 
-app.use('/api', auth);
+// app.use('/api', auth);
+
+
+app.use('/api', categories);
 
 
 module.exports = app;

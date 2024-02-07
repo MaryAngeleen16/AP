@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import MetaData from '../../Layouts/Metadata';
+import MetaData from '../Layouts/Metadata';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';

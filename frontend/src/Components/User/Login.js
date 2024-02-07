@@ -1,15 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Metadata from '../../Layouts/Metadata';
-import Loader from '../../Layouts/Loader';
+import Metadata from '../Layouts/Metadata';
+import Loader from '../Layouts/Loader';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticate, getUser } from '../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
 
-import '../../Layouts/FH.css';
-import '../../Layouts/RLForms.css';
+import '../Layouts/FH.css';
+import '../Layouts/RLForms.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -60,48 +60,24 @@ const Login = () => {
       ) : (
         <Fragment>
           {/* <Metadata title={'Login'} /> */}
-          <div className="container register-photo-json">
-            <div className="form-container" >
-              <div className="image-holder-log"></div>
-              <form className="shadow-lg form-json" onSubmit={submitHandler}>
-                <h1 className="mb-3 rl-title-des">LOGIN</h1>
-                <div className="form-group rl-des">
-                  <label htmlFor="email_field">Email</label>
-                  <input
-                    type="email"
-                    id="email_field"
-                    className="form-control"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+          <div className="container-login">
+            <div className="content">
+              <h2 class="logo"><span class="bx--bxl-firebase"> Youth Empowerment Hub</span></h2>
 
-                <div className="form-group rl-des">
-                  <label htmlFor="password_field">Password</label>
-                  <input
-                    type="password"
-                    id="password_field"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
+              <div class="text-sci">
+                <h2>Welcome!<br /><span>To our Website.</span></h2>
 
-                <div className="d-flex justify-content-between mb-2">
-                  <a href="/password/forgot" className="float-left rl-des">
-                    Forgot Password?
-                  </a>
-                  <a href="/register" className="float-right rl-des">
-                    New User?
-                  </a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vestibulum, velit eget fermentum consectetur, erat ex sodales sapien, vel rutrum odio dui at velit. Nulla facilisi. Integer consectetur lorem nec libero bibendum, sit amet dapibus turpis hendrerit.</p>
+
+                <div className="social-icons">
+                  <a href="#"><i className='bx bxl-linkedin'></i></a>
+                  <a href="#"><i className='bx bxl-facebook'></i></a>
+                  <a href="#"><i className='bx bxl-instagram'></i></a>
+                  <a href="#"><i className='bx bxl-twitter'></i></a>
                 </div>
-                <div className="d-flex justify-content-center mt-2">
-                  <button id="login_button" type="submit" className="btn-json ">
-                    LOGIN
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
+            <div className="logreg-box"></div>
           </div>
           <ToastContainer />
         </Fragment>

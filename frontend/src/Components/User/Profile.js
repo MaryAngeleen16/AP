@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Loader from '../../Layouts/Loader'
-import MetaData from '../../Layouts/Metadata'
+import Loader from '../Layouts/Loader'
+import MetaData from '../Layouts/Metadata'
 import { getUser, } from '../../utils/helpers';
 import axios from 'axios';
 import { toast } from 'react-toastify';

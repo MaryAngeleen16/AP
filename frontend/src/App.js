@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './Layouts/Header';
-import Footer from './Layouts/Footer';
+import Header from './Components/Layouts/Header';
+import Footer from './Components/Layouts/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';

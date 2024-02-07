@@ -2,7 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const auth = require('./routes/auth');
-const orderController = require('./controllers/orderController');
+const categories = require('./routes/category');
+const categoryController = require('./controllers/categoryController');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.post('/api/create-order', orderController.newOrder);
 // });
 
 app.use('/api', auth);
+app.use('/api', categories);
 
 
 module.exports = app;

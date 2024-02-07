@@ -2,8 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const auth = require('./routes/auth');
-const categories = require('./routes/category');
-const categoryController = require('./controllers/categoryController');
 
 const app = express();
 
@@ -16,7 +14,6 @@ app.use(cookieParser());
 
 
 app.use('/api', auth);
-app.use('/api', categories);
 
 
 module.exports = app;

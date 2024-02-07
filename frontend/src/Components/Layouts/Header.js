@@ -4,6 +4,8 @@ import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from 
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './FH.css';
+import Home from '../Home';
+import { Link } from 'react-router-dom';
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -28,10 +30,13 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
 
-        <Typography variant="h6" component="div" 
+
+        < Typography variant="h6" component="div" 
         sx={{ flexGrow: 1 }}
         className= "text-ye"
-        style={{textAlign: 'left'}}>
+        style={{textAlign: 'left'}}
+        href="/">
+         
           Youth Empowerment
         </Typography>
 

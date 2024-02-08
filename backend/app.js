@@ -1,8 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const auth = require('./routes/auth');
 const categories = require('./routes/category');
+const auth = require('./routes/auth');
+const posts = require('./routes/post'); // Import the post routes module
 
 const app = express();
 
@@ -14,10 +15,10 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 
 
-// app.use('/api', auth);
 
-
+// Use the imported routes modules
 app.use('/api', categories);
-
+app.use('/api', auth);
+app.use('/api', posts);
 
 module.exports = app;

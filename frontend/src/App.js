@@ -35,7 +35,7 @@ function App() {
           <Route path="/category/create" element={<CreateCategory />} />
           <Route path="/category/update/:id" element={<UpdateCategory />} />
           <Route path="/category/list" element={<CategoryList />} />
-
+          <Route path="/" element={<Home />} />
           <Route
             path="/admin/users"
             element={

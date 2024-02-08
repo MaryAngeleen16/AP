@@ -1,19 +1,21 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import Metadata from '../Layouts/Metadata';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import '../Layouts/RLForms.css';
 
 const Register = () => {
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-    avatar: null,
   });
 
-  const { name, email, password, avatar } = user;
+  const { name, email, password } = user;
 
+  const [avatar, setAvatar] = useState(null);
   const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar.jpg');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState('');
@@ -34,32 +36,45 @@ const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('password', password);
-      formData.append('avatar', avatar);
-
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-
-      const { data } = await axios.post(`http://localhost:4001/api/register`, formData, config);
-      console.log(data.user);
-      setIsAuthenticated(true);
-      setLoading(false);
-      setUser(data.user);
-      navigate('/');
-    } catch (error) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      setUser(null);
-      setError(error.response.data.message);
-      console.log(error.response.data.message);
+    // Check if name is empty
+    if (!name) {
+      toast.error('Name is required', {
+        position: toast,
+      });
+      return;
     }
+  
+    // Check if email is empty or invalid
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      toast.error('Enter a valid email address', {
+        position: toast,
+      });
+      return;
+    }
+  
+    // Check if password is empty
+    if (!password) {
+      toast.error('Password is required', {
+        position: toast,
+      });
+      return;
+    }
+  
+    // Check if avatar is empty
+    if (!avatar) {
+      toast.error('Avatar is required', {
+        position: toast,
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.set('name', name);
+    formData.set('email', email);
+    formData.set('password', password);
+    formData.set('avatar', avatar);
+  
+    register(formData);
   };
 
   const onChange = (e) => {
@@ -79,6 +94,28 @@ const Register = () => {
     }
   };
 
+  const register = async (userData) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post(`http://localhost:4001/api/register`, userData, config);
+      console.log(data.user);
+      setIsAuthenticated(true);
+      setLoading(false);
+      setUser(data.user);
+      navigate('/');
+    } catch (error) {
+      setIsAuthenticated(false);
+      setLoading(false);
+      setUser(null);
+      setError(error.response.data.message);
+      console.log(error.response.data.message);
+    }
+  };
   return (
     <Fragment>
       <div className="container-register">
@@ -128,7 +165,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </Fragment>
   );
 };

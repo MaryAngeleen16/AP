@@ -4,7 +4,7 @@ import Metadata from '../Layouts/Metadata';
 import Loader from '../Layouts/Loader';
 import axios from 'axios';
 
-import 'boxicons'
+import 'boxicons';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { authenticate, getUser } from '../../utils/helpers';
@@ -18,19 +18,19 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : '';
+  // const redirect = location.search ? new URLSearchParams(location.search).get('redirect') : '';
 
-  useEffect(() => {
-    if (getUser() && redirect === 'shipping') {
-      navigate(`/${redirect}`);
-    }
-  }, [redirect, navigate]);
+  // useEffect(() => {
+  //   if (getUser() && redirect === 'shipping') {
+  //     navigate(`/${redirect}`);
+  //   }
+  // }, [redirect, navigate]);
 
-  const notify = (error) => {
-    toast.error(error, {
-      position: toast,
-    });
-  };
+  // const notify = (error) => {
+  //   toast.error(error, {
+  //     position: toast,
+  //   });
+  // };
 
   const login = async (email, password) => {
     try {
@@ -44,7 +44,9 @@ const Login = () => {
       authenticate(data, () => navigate('/'));
       window.location.reload();
     } catch (error) {
-      notify('Invalid user or password');
+      toast.error('Invalid User or Password', {
+        position: 'top-right',
+      });
     }
   };
 
@@ -76,13 +78,23 @@ const Login = () => {
                   <div className="input-box">
                   <span class="icon"><box-icon type='solid' name='envelope'></box-icon>
                     </span>
-                    <input type="email" required />
+                    <input 
+                      type="email"
+                      id="emailform"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                     required />
                     <label>Email</label>
                   </div>
 
                   <div className="input-box">
                     <span class="icon"><box-icon type='solid' name='lock-alt'></box-icon></span>
-                    <input type="password" required />
+                    <input 
+                      type="password" 
+                      id="passwordform"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                     required />
                     <label>Password</label>
                   </div>
                   <div class="remember-forgot">

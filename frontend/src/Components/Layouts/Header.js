@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
 import { getUser, logout } from '../../utils/helpers';
 import './FH.css';
+import CoffeeIcon from '@mui/icons-material/Coffee';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,52 +96,58 @@ const Header = () => {
           <MenuItem onClick={handleClose}>Tutorial 3</MenuItem>
         </Menu>
         <Button color="inherit">Sexual Education</Button>
-
-        <IconButton
-          size="large"
-          edge="end"
-          color="inherit"
-          aria-label="profile"
-          onClick={handleOpenUserMenu}
-        >
-          <AccountCircleIcon />
-        </IconButton>
-        <Menu
-          sx={{ mt: '45px' }}
-          id="menu-appbar"
-          anchorEl={anchorElUser}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(anchorElUser)}
-          onClose={handleCloseUserMenu}
-        >
-          {settings.map((setting, index) => (
-            <MenuItem key={index} onClick={handleCloseUserMenu}>
-              <Link to="/me" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography textAlign="center">{setting}</Typography>
-              </Link>
-            </MenuItem>
-          ))}
-
-          {user && user.role === 'admin' && (
-            <MenuItem>
-              <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <Typography textAlign="center">Dashboard</Typography>
-              </Link>
-            </MenuItem>
+        <Box>
+          {userAuthenticated ? (
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu}>
+                {user.avatar ? (
+                  <Avatar src={user.avatar.url} alt={user.name} />
+                ) : null}
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <Link to="/login" className="btn ml-4 Json-BTN" id="login_btn">
+              <Button className='Json-BTN'>Login</Button>
+            </Link>
           )}
+          {/* Removed IconButton with Account Circle Icon */}
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting, index) => (
+              <MenuItem key={index} onClick={handleCloseUserMenu}>
+                <Link to="/me" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </Link>
+              </MenuItem>
+            ))}
 
-          <MenuItem onClick={handleLogout}>
-            <Typography textAlign="center" color="red">Logout</Typography>
-          </MenuItem>
-        </Menu>
+            {user && user.role === 'admin' && (
+              <MenuItem>
+                <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Typography textAlign="center">Dashboard</Typography>
+                </Link>
+              </MenuItem>
+            )}
+
+            <MenuItem onClick={handleLogout}>
+              <Typography textAlign="center" color="red">Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );

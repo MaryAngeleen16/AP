@@ -17,6 +17,8 @@ import CreateCategory from './Components/Admin/CreateCategory';
 import UpdateCategory from './Components/Admin/UpdateCategory';
 import ProtectedRoute from './Components/Route/ProtectedRoute';
 
+import CreatePost from './Components/Admin/CreatePost.js';
+import PostList from './Components/Admin/PostList.js';
 function App() {
   return (
     <div>
@@ -32,9 +34,14 @@ function App() {
           <Route path="/password/forgot" element={<ForgotPassword />} />
           <Route path="/password/reset/:token" element={<NewPassword />} />
           <Route path="/password/update" element={<UpdatePassword />} />
+
           <Route path="/category/create" element={<CreateCategory />} />
           <Route path="/category/update/:id" element={<UpdateCategory />} />
           <Route path="/category/list" element={<CategoryList />} />
+
+          <Route path="/post/create" element={<CreatePost />} />
+          <Route path="/post/list" element={<PostList />} />
+
           <Route path="/" element={<Home />} />
           <Route
             path="/admin/users"

@@ -33,7 +33,7 @@ const Register = () => {
     }
   }, [error, isAuthenticated, navigate]);
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
 
     // Check if name is empty
@@ -69,10 +69,10 @@ const Register = () => {
     }
 
     const formData = new FormData();
-    formData.set('name', name);
-    formData.set('email', email);
-    formData.set('password', password);
-    formData.set('avatar', avatar);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('avatar', avatar);
   
     register(formData);
   };
@@ -80,19 +80,19 @@ const Register = () => {
   const onChange = (e) => {
     if (e.target.name === 'avatar') {
       const reader = new FileReader();
-
+  
       reader.onload = () => {
         if (reader.readyState === 2) {
           setAvatarPreview(reader.result);
-          setUser({ ...user, avatar: e.target.files[0] });
+          setAvatar(reader.result); // Set avatar state instead of user state
         }
       };
-
+  
       reader.readAsDataURL(e.target.files[0]);
     } else {
       setUser({ ...user, [e.target.name]: e.target.value });
     }
-  };
+  };  
 
   const register = async (userData) => {
     try {
@@ -116,6 +116,7 @@ const Register = () => {
       console.log(error.response.data.message);
     }
   };
+  
   return (
     <Fragment>
       <div className="container-register">
@@ -150,10 +151,30 @@ const Register = () => {
                 <label>Password</label>
               </div>
 
-              <div className="input-box">
-                <span className="icon"><box-icon type='solid' name='image-alt'></box-icon></span>
-                <input type="file" name="avatar" onChange={onChange} required />
-                <label>Avatar</label>
+              <div className="form-group rl-des">
+                <label htmlFor="avatar_upload" style={{ paddingTop: '30px' }}>
+                  Avatar
+                </label>
+                <div className="d-flex align-items-center">
+                  <div>
+                    <figure className="avatar mr-3 item-rtl ">
+                      <img src={avatarPreview} className="rounded-circle" alt="Avatar Preview" />
+                    </figure>
+                  </div>
+                  <div className="custom-file">
+                    <input
+                      type="file"
+                      name="avatar"
+                      className="custom-file-input"
+                      id="customFile"
+                      accept="image/*"
+                      onChange={onChange}
+                    />
+                    <label className="custom-file-label" htmlFor="customFile">
+                      Choose Avatar
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <button type="submit" className="btn">Register</button>

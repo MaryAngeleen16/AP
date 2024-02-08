@@ -28,7 +28,7 @@ const Login = () => {
 
   const notify = (error) => {
     toast.error(error, {
-      position: toast.POSITION.BOTTOM_RIGHT,
+      position: toast,
     });
   };
 

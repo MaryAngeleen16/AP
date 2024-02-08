@@ -242,3 +242,23 @@
     color: #A3716E;;
 }
 
+.avatar {
+    display: inline-block;
+    margin-bottom: 0;
+    height: 3rem;
+    width: 3rem;
+    -webkit-border-radius: 60%;
+    -moz-border-radius: 60%;
+    border-radius: 60%;
+    font-family: "Montserrat", sans-serif;
+    color: #000; /* Font color set to black */
+  }
+
+  .avatar img {
+    width: 80%;
+    height: 80%;
+    border-radius: 30px;
+    border: 15px solid rgba(#f6f2ff, 0.7);
+    object-fit: cover;
+    image-rendering: auto;
+  }

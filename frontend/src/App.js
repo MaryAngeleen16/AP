@@ -25,15 +25,13 @@ import CreatePost from './Components/Admin/postCreate';
 import UpdatePost from './Components/Admin/UpdatePost';
 import PostPage from './Components/PostPage';
 
-
 function App() {
   return (
     <div>
       <Router>
         <Header />
-
         <Routes>
-          <Route path="/" element={<Home />} exact="true" />
+          <Route path="/" element={<Home />} exact />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/me" element={<Profile />} />
@@ -46,24 +44,30 @@ function App() {
           <Route path="/category/update/:id" element={<UpdateCategory />} />
           <Route path="/category/list" element={<CategoryList />} />
 
-          {/* <Route path="/post/list" element={<PostList />} />  */}
           <Route path="/post/list" element={<PostList />} />
           <Route path="/post/create" element={<CreatePost />} />
-          <Route path="/post/update/:id"  element={<UpdatePost />} />
-          <Route path="/PostPage" element={<PostPage />} exact="true" />
+          <Route path="/post/update/:id" element={<UpdatePost />} />
+          <Route path="/PostPage" element={<PostPage />} exact />
 
-          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={
+            <ProtectedRoute isAdmin={true}>
+
+              <Dashboard />
+            </ProtectedRoute>
+          } end />
+          <Route path="/sidebar" element={
+            <ProtectedRoute isAdmin={true}>
+              {/* <Sidebar /> */}
+            </ProtectedRoute>
+          } end />
+
           <Route
             path="/admin/users"
             element={
               <ProtectedRoute isAdmin={true}>
-                {/* <Dashboard /> */}
+                <Dashboard />
               </ProtectedRoute>
-
-              
             }
-
-            
           />
         </Routes>
         <Footer />

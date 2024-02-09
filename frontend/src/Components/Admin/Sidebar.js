@@ -25,12 +25,12 @@ function Sidebar() {
                             <box-icon name='category'></box-icon>
                             <span>Categories</span>
                         </a>
-                        <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="category" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li className="sidebar-category">
-                                <a href="#" className="sidebar-link">Category List</a>
+                                <a href="category/list" className="sidebar-link">Category List</a>
                             </li>
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link">Create Category</a>
+                                <a href="category/create" className="sidebar-link">Create Category</a>
                             </li>
                         </ul>
                     </li>
@@ -39,12 +39,12 @@ function Sidebar() {
                             <box-icon name='comment-dots' ></box-icon>
                             <span>Posts</span>
                         </a>
-                        <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <ul id="post" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link">Post List</a>
+                                <a href="/post/list/" className="sidebar-link">Post List</a>
                             </li>
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link">Create Post</a>
+                                <a href="/post/create/" className="sidebar-link">Create Post</a>
                             </li>
                         </ul>
                     </li>

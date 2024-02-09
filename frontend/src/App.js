@@ -24,7 +24,7 @@ import ProtectedRoute from './Components/Route/ProtectedRoute';
 import PostList from './Components/Admin/PostList';
 import CreatePost from './Components/Admin/postCreate';
 import UpdatePost from './Components/Admin/UpdatePost';
-
+import PostPage from './Components/PostPage';
 
 
 function App() {
@@ -51,6 +51,8 @@ function App() {
           <Route path="/post/list" element={<PostList />} />
           <Route path="/post/create" element={<CreatePost />} />
           <Route path="/post/update/:id"  element={<UpdatePost />} />
+          <Route path="/PostPage" element={<PostPage />} exact="true" />
+
           <Route path="/" element={<Home />} />
           <Route
             path="/admin/users"

@@ -55,7 +55,7 @@ const Header = () => {
   return (
     <AppBar position="static" className="bg">
       <Toolbar>
-        <IconButton
+        {/* <IconButton
           size="large"
           edge="start"
           color="inherit"
@@ -63,14 +63,14 @@ const Header = () => {
           sx={{ mr: 2 }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
 
         <Typography
           variant="h6"
           component="div"
           sx={{ flexGrow: 1 }}
           className="text-ye"
-          style={{ textAlign: 'left' }}
+          style={{ textAlign: 'left'}}
           href="/"
         >
           Youth Empowerment
@@ -106,8 +106,8 @@ const Header = () => {
               </IconButton>
             </Tooltip>
           ) : (
-            <Link to="/login" className="btn ml-4 Json-BTN" id="login_btn">
-              <Button className='Json-BTN'>Login</Button>
+            <Link to="/login" className="btn ml-4" id="login_btn">
+              <Button className='login-text'>Login</Button>
             </Link>
           )}
           {/* Removed IconButton with Account Circle Icon */}

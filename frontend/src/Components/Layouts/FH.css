@@ -4,5 +4,10 @@
 
 .text-ye
 {
-    color: #F8FAE5;
+    color: #FEFBF6 !important;
+}
+
+.login-text
+{
+    color: #FEFBF6!important;
 }

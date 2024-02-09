@@ -102,13 +102,6 @@ function Sidebar() {
                     </a>
                 </div>
             </aside>
-            <div className="main p-3">
-                <div className="text-center">
-                    <h1>
-                        Sidebar Bootstrap 5
-                    </h1>
-                </div>
-            </div>
         </div>
     );
 }

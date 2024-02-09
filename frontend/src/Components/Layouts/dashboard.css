@@ -142,3 +142,7 @@ a.sidebar-link:hover {
 }
 
 /* end of admin sidebar */
+
+.container-dashboard {
+     background: #fffffd;
+}

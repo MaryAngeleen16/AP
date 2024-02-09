@@ -12,10 +12,11 @@ import Sidebar from './Sidebar.js';
 
 const Dashboard = () => {
         return (
-                <div className="d-flex" id="wrapper">
-                        <Sidebar />
-                        <div id="page-content-wrapper">
-                                {/* <nav className="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <div className="container-dashboard">
+                        <div className="d-flex" id="wrapper">
+                                <Sidebar />
+                                <div id="page-content-wrapper">
+                                        {/* <nav className="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
                                         <div className="d-flex align-items-center">
                                                 <i className="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
                                                 <h2 className="fs-2 m-0">Dashboard</h2>
@@ -43,8 +44,9 @@ const Dashboard = () => {
                                                 </ul>
                                         </div>
                                 </nav> */}
-                                <div className="container-fluid px-4">
-                                        {/* Content goes here */}
+                                        <div className="container-dashboard px-4">
+                                                {/* Content goes here */}
+                                        </div>
                                 </div>
                         </div>
                 </div>

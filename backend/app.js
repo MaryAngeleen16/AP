@@ -3,8 +3,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const categories = require('./routes/category');
 const auth = require('./routes/auth');
-const posts = require('./routes/post'); // Import the post routes module
-
+const post = require('./routes/post');
 const app = express();
 
 // Middleware setup
@@ -19,6 +18,5 @@ app.use(cookieParser());
 // Use the imported routes modules
 app.use('/api', categories);
 app.use('/api', auth);
-app.use('/api', posts);
-
+app.use('/api', post);
 module.exports = app;

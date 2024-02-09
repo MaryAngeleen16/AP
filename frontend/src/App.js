@@ -2,6 +2,10 @@ import React from 'react';
 import Header from './Components/Layouts/Header';
 import Footer from './Components/Layouts/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import { getUser } from './utils/helpers';
+
+
 import Login from './Components/User/Login';
 import Register from './Components/User/Register';
 import Profile from './Components/User/Profile';
@@ -17,8 +21,12 @@ import CreateCategory from './Components/Admin/CreateCategory';
 import UpdateCategory from './Components/Admin/UpdateCategory';
 import ProtectedRoute from './Components/Route/ProtectedRoute';
 
-import CreatePost from './Components/Admin/CreatePost.js';
-import PostList from './Components/Admin/PostList.js';
+import PostList from './Components/Admin/PostList';
+import CreatePost from './Components/Admin/postCreate';
+import UpdatePost from './Components/Admin/UpdatePost';
+
+
+
 function App() {
   return (
     <div>
@@ -39,9 +47,10 @@ function App() {
           <Route path="/category/update/:id" element={<UpdateCategory />} />
           <Route path="/category/list" element={<CategoryList />} />
 
-          <Route path="/post/create" element={<CreatePost />} />
+          {/* <Route path="/post/list" element={<PostList />} />  */}
           <Route path="/post/list" element={<PostList />} />
-
+          <Route path="/post/create" element={<CreatePost />} />
+          <Route path="/post/update/:id"  element={<UpdatePost />} />
           <Route path="/" element={<Home />} />
           <Route
             path="/admin/users"
@@ -49,7 +58,11 @@ function App() {
               <ProtectedRoute isAdmin={true}>
                 {/* <Dashboard /> */}
               </ProtectedRoute>
+
+              
             }
+
+            
           />
         </Routes>
         <Footer />

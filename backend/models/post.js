@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
-const cloudinary = require('cloudinary');
 
 const postSchema = new mongoose.Schema({
-  title: {
+  name: {
     type: String,
-    required: true,
+    required: [true, "Please enter Post Title."]
   },
   description: {
     type: String,
-    required: true,
+    required: [true, "Enter enter Description."]
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, "Please select a category."]
   },
   images: [
     {
@@ -22,26 +25,6 @@ const postSchema = new mongoose.Schema({
       },
     },
   ],
-});
-
-// Middleware to handle image upload before saving post
-postSchema.pre('save', async function (next) {
-  const images = this.images.map(async (image) => {
-    try {
-      const result = await cloudinary.v2.uploader.upload(image.url, {
-        folder: 'posts',
-      });
-      return {
-        public_id: result.public_id,
-        url: result.secure_url,
-      };
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      throw new Error('Error uploading image');
-    }
-  });
-  this.images = await Promise.all(images);
-  next();
 });
 
 const Post = mongoose.model('Post', postSchema);

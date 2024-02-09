@@ -3,27 +3,25 @@ const router = express.Router();
 const upload = require('../utils/multer');
 const Post = require('../models/post');
 const {
-  createPost,
-  getAllPosts,
-  getPostById,
+  newPost,
   updatePost,
-  deletePost
+  deletePost,
+  getPosts,
+  getAdminPost,
+  getSinglePost,
+  getPostById,
 } = require('../controllers/postController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middleware/auth');
 
-// Create a new post
-router.post('/posts/new', isAuthenticatedUser, authorizeRoles("admin"), upload.array('images'), createPost);
+router.get('/posts', getPosts);
+router.get('/posts/:id', getSinglePost);
+router.get('/post/:id', getPostById);
 
-// Get all posts
-router.get('/posts', getAllPosts);
 
-// Get a post by ID
-router.get('/posts/:id', getPostById);
-
-// Update a post by ID
-router.put('/posts/:id', isAuthenticatedUser, authorizeRoles("admin"), upload.array('images'), updatePost);
-
-// Delete a post by ID
-router.delete('/posts/:id', isAuthenticatedUser, authorizeRoles("admin"), deletePost);
+//admin
+router.put('/admin/update/post/:id', isAuthenticatedUser, authorizeRoles("admin"), upload.array('images'),updatePost);
+router.delete('/admin/delete/post/:id',  deletePost);
+router.post('/admin/post/new', isAuthenticatedUser, authorizeRoles("admin"), upload.array('images'), newPost);
+router.get('/admin/post', isAuthenticatedUser, authorizeRoles("admin"), getAdminPost);
 
 module.exports = router;

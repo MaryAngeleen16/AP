@@ -1,93 +1,206 @@
 const Post = require('../models/post');
-const cloudinary = require('cloudinary');
+const mongoose = require('mongoose');
+const APIFeatures = require('../utils/apiFeatures');
+const cloudinary = require('cloudinary')
 
-// Function to handle errors
-const handleErrors = (error, res) => {
-  if (error.name === 'ValidationError') {
-    return res.status(400).json({ error: error.message });
-  } else {
-    console.error(error);
-    return res.status(500).json({ error: 'Unable to perform operation' });
-  }
-};
+exports.newPost = async (req, res, next) => {
 
-exports.createPost = async (req, res) => {
-  try {
-    const { title, description, images } = req.body;
-    const post = new Post({ title, description, images });
-    
-    // Logic for image upload using cloudinary
-    let imagesLinks = [];
-    if (req.files.length > 0) {
-      for (const image of req.files) {
-        try {
-          const result = await cloudinary.v2.uploader.upload(image.path, {
-            folder: 'posts',
-            width: 1000,
-            crop: "auto",
-          });
-          imagesLinks.push({
-            public_id: result.public_id,
-            url: result.secure_url
-          });
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
+	let imagesLinks = [];
+	let images = []
+	
+	if (req.files.length > 0) {
+		req.files.forEach(image => {
+			images.push(image.path)
+		})
+	}
 
-    post.images = imagesLinks;
+	if (req.file) {
+		images.push(req.file.path);
+	}
 
-    await post.save();
-    res.status(201).json(post);
-  } catch (error) {
-    handleErrors(error, res);
-  }
-};
+	if (req.body.images) {
+		if (typeof req.body.images === 'string') {
+			images.push(req.body.images)
+		} else {
+			images = req.body.images
+		}
+	}
 
-exports.getAllPosts = async (req, res) => {
-  try {
-    const posts = await Post.find();
-    res.json({ posts });
-  } catch (error) {
-    handleErrors(error, res);
-  }
-};
+	for (let i = 0; i < images.length; i++) {
+		let imageDataUri = images[i]
+		try {
+			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+				folder: 'posts-jbrew',
+				width: 1000,
+				crop: "auto",
+			});
 
-exports.getPostById = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const post = await Post.findById(postId);
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-    res.json(post);
-  } catch (error) {
-    handleErrors(error, res);
-  }
-};
+			imagesLinks.push({
+				public_id: result.public_id,
+				url: result.secure_url
+			})
 
-exports.updatePost = async (req, res) => {
-  try {
-    const { title, description, images } = req.body;
-    const post = await Post.findByIdAndUpdate(req.params.id, { title, description, images }, { new: true });
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-    res.json(post);
-  } catch (error) {
-    handleErrors(error, res);
-  }
-};
+		} catch (error) {
+			console.log(error)
+		}
+
+	}
+
+	req.body.images = imagesLinks
+	//req.body.user = req.user.id;
+
+	const post = await Post.create(req.body);
+	if (!post)
+		return res.status(400).json({
+			success: false,
+			message: 'Post not created'
+		})
+
+
+	res.status(201).json({
+		success: true,
+		post
+	})
+}
+
 
 exports.deletePost = async (req, res) => {
-  try {
-    const post = await Post.findByIdAndDelete(req.params.id);
-    if (!post) {
-      return res.status(404).json({ error: 'Post not found' });
-    }
-    res.json({ message: 'Post deleted successfully' });
-  } catch (error) {
-    handleErrors(error, res);
-  }
+	try {
+		const { id } = req.params;
+
+		const post = await Post.findByIdAndDelete(id);
+
+		if (!post) {
+			return res.status(404).json({ message: 'Post not found' });
+		}
+
+		return res.json({ message: 'Post deleted successfully' });
+	} catch (error) {
+		return res.status(500).json({ error: 'Internal server error' });
+	}
 };
+
+exports.getPosts = async (req, res, next) => {
+	const posts = await Post.find({});
+	res.status(200).json({
+		success: true,
+		count: posts.length,
+		posts
+	})
+}
+
+exports.getSinglePost = async (req, res, next) => {
+	const post = await Post.findById(req.params.id);
+	if (!post) {
+		return res.status(404).json({
+			success: false,
+			message: 'Post not found'
+		})
+	}
+	res.status(200).json({
+		success: true,
+		post
+	})
+}
+ 
+exports.getAdminPost = async (req, res, next) => {
+
+	const posts = await Post.find();
+
+	res.status(200).json({
+		success: true,
+		posts
+	})
+}
+exports.updatePost = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        let post = await Post.findById(req.params.id);
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: 'Post not found'
+            });
+        }
+
+        if (req.body.images) {
+            let images = [];
+
+            if (typeof req.body.images === 'string') {
+                images.push(req.body.images);
+            } else {
+                images = req.body.images;
+            }
+
+            if (images && images.length > 0) {
+                for (let i = 0; i < post.images.length; i++) {
+                    const result = await cloudinary.uploader.destroy(post.images[i].public_id);
+                }
+            }
+
+            let imagesLinks = [];
+
+            for (let i = 0; i < images.length; i++) {
+                const result = await cloudinary.uploader.upload(images[i], {
+                    folder: 'baghub/post'
+                });
+
+                imagesLinks.push({
+                    public_id: result.public_id,
+                    url: result.secure_url
+                });
+            }
+
+            req.body.images = imagesLinks;
+        }
+
+        post = await Post.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        });
+
+        return res.status(200).json({
+            success: true,
+            post
+        });
+    } catch (error) {
+        console.error('Error updating post:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
+    }
+};
+
+exports.getSinglePost = async (req, res, next) => {
+	const post = await Post.findById(req.params.id);
+	if (!post) {
+		return res.status(404).json({
+			success: false,
+			message: 'Post not found'
+		})
+	}
+	res.status(200).json({
+		success: true,
+		post
+	})
+}
+
+
+exports.getPostById = async (req, res) => {
+	try {
+	  const { id } = req.params;
+  
+	  const post = await Post.findById(id);
+  
+	  if (!post) {
+		return res.status(404).json({ message: 'Post not found' });
+	  }
+  
+	  return res.json(post);
+	} catch (error) {
+	  return res.status(500).json({ error: 'Internal server error' });
+	}
+  };

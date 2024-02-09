@@ -3,11 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import Sidebar from './Sidebar';
 import { MDBDataTable } from 'mdbreact';
-// import './CRUD.css';
 import 'mdbreact/dist/css/mdb.css';
-
 
 const CategoryDataTable = () => {
   const [categories, setCategories] = useState([]);
@@ -37,7 +34,9 @@ const CategoryDataTable = () => {
   };
 
   const setDataTable = () => {
+    
     const data = {
+      
       columns: [
         {
           label: 'ID',
@@ -74,10 +73,13 @@ const CategoryDataTable = () => {
               Edit
             </Link>
             <button
-              className="btn btn-danger ml-2"
+              className="btn btn-danger"
+              style={{maxWidth: "100px", marginTop: "5px"}}              
               onClick={() => handleDelete(category._id)}
             >
-              Delete
+            
+             Delete
+           
             </button>
           </div>
         ),
@@ -88,23 +90,24 @@ const CategoryDataTable = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-3">
-          {/* <Sidebar /> */}
-        </div>
-        <div className="col-md-9" >
-          <h2>List of Categories</h2>
-          <Link to="/category/create" className="btn btn-primary mb-3">
-            Create Category
-          </Link>
-          <MDBDataTable
-            data={setDataTable()}
-            className="px-3"
-            bordered
-            striped
-            hover
-          />
+    <div className="container mt-6">
+      <div className="row justify-content-center"> {/* Center the content horizontally */}
+        <div className="col-md-8"> {/* Adjust the column width as per your requirement */}
+          <div className="d-flex justify-content-between align-items-center mb-4">
+          <h2 style={{ fontWeight: "bold", padding: "10px" }}>List of Categories</h2>
+            <Link to="/category/create" className="btn btn-primary"
+            style={{ fontWeight: "bold", padding: "10px" }}>
+              Create Category
+            </Link>
+          </div>
+          <div className="text-center"> {/* Center the table */}
+            <MDBDataTable
+              data={setDataTable()}
+              bordered
+              striped
+              hover
+            />
+          </div>
           <ToastContainer />
         </div>
       </div>

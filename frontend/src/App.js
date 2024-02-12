@@ -25,6 +25,9 @@ import CreatePost from './Components/Admin/postCreate';
 import UpdatePost from './Components/Admin/UpdatePost';
 import PostPage from './Components/PostPage';
 
+import VideoCreate from './Components/Admin/videoCreate';
+import VideoList from './Components/Admin/VideoList';
+import UpdateVideo from './Components/Admin/UpdateVideo';
 function App() {
   return (
     <div>
@@ -61,6 +64,11 @@ function App() {
             </ProtectedRoute>
           } end />
 
+
+          <Route path="/video/create" element={<VideoCreate />} />
+          <Route path="/video/list" element={<VideoList />} />
+          <Route path="/video/update/:id" element={<UpdateVideo />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/admin/users"
             element={

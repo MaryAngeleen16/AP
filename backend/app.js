@@ -4,6 +4,7 @@ const cors = require('cors');
 const categories = require('./routes/category');
 const auth = require('./routes/auth');
 const post = require('./routes/post');
+const video = require('./routes/video');
 const app = express();
 
 // Middleware setup
@@ -19,4 +20,5 @@ app.use(cookieParser());
 app.use('/api', categories);
 app.use('/api', auth);
 app.use('/api', post);
+app.use('/api', video);
 module.exports = app;

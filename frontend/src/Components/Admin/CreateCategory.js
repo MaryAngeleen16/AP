@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import Sidebar from './Sidebar'; 
+import Sidebar from './Sidebar'; 
 // import './CRUD.css';
 
 const CreateCategory = () => {
@@ -47,7 +47,7 @@ const CreateCategory = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-3">
-          {/* <Sidebar />  */}
+          <Sidebar /> 
         </div>
         <div className="col-md-9 text-crud" style={{paddingBottom:'50px'}}>
           <h2 className='title-crud'>Create Category</h2>

@@ -30,7 +30,7 @@ exports.newPost = async (req, res, next) => {
 		let imageDataUri = images[i]
 		try {
 			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
-				folder: 'posts-jbrew',
+				folder: 'posts-youthhub',
 				width: 1000,
 				crop: "auto",
 			});

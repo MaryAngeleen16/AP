@@ -10,7 +10,7 @@ function Sidebar() {
 
     return (
         <div className={`wrapper ${isExpanded ? 'expand' : ''}`}>
-            <aside id="sidebar">
+            <aside id="sidebar" className='fixed-left-sidebar'>
                 <div className="d-flex">
                     <button className="toggle-btn" onClick={toggleSidebar}>
                         <i className="lni lni-grid-alt"></i>
@@ -27,10 +27,10 @@ function Sidebar() {
                         </a>
                         <ul id="category" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li className="sidebar-category">
-                                <a href="category/list" className="sidebar-link">Category List</a>
+                                <a href="/category/list" className="sidebar-link">Category List</a>
                             </li>
                             <li className="sidebar-item">
-                                <a href="category/create" className="sidebar-link">Create Category</a>
+                                <a href="/category/create" className="sidebar-link">Create Category</a>
                             </li>
                         </ul>
                     </li>
@@ -56,10 +56,10 @@ function Sidebar() {
                         </a>
                         <ul id="auth" className="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link">Video List</a>
+                                <a href="/video/list" className="sidebar-link">Video List</a>
                             </li>
                             <li className="sidebar-item">
-                                <a href="#" className="sidebar-link">Upload New Video</a>
+                                <a href="/video/create" className="sidebar-link">Upload New Video</a>
                             </li>
                         </ul>
                     </li>

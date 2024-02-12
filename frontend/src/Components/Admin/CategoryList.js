@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MDBDataTable } from 'mdbreact';
 import 'mdbreact/dist/css/mdb.css';
+import Sidebar from './Sidebar';
 
 const CategoryDataTable = () => {
   const [categories, setCategories] = useState([]);
@@ -34,9 +35,7 @@ const CategoryDataTable = () => {
   };
 
   const setDataTable = () => {
-    
     const data = {
-      
       columns: [
         {
           label: 'ID',
@@ -68,20 +67,32 @@ const CategoryDataTable = () => {
         name: category.name,
         description: category.description,
         actions: (
-          <div>
-            <Link to={`/category/update/${category._id}`} className="btn btn-primary">
-              Edit
-            </Link>
-            <button
-              className="btn btn-danger"
-              style={{maxWidth: "100px", marginTop: "5px"}}              
-              onClick={() => handleDelete(category._id)}
-            >
-            
-             Delete
-           
-            </button>
-          </div>
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: "10px" }}>
+          <Link to={`/category/update/${category._id}`} className="btn btn-primary mr-2"
+          style={{ padding: "5px 30px", maxHeight: "50px", 
+          paddingBottom: "-80px",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            lineHeight: "40px" // Set line height equal to button height
+        }}>
+            Edit
+          </Link>
+          <button
+            className="btn btn-danger"
+            style={{
+              minWidth: "100px",
+              marginTop: "5px",
+              fontSize: "0.8rem",
+              marginLeft: "5px",
+              padding: "6px 12px" 
+            }}
+            onClick={() => handleDelete(category._id)}
+          >
+            Delete
+          </button>
+        </div>
+        
         ),
       });
     });
@@ -91,16 +102,25 @@ const CategoryDataTable = () => {
 
   return (
     <div className="container mt-6">
-      <div className="row justify-content-center"> {/* Center the content horizontally */}
-        <div className="col-md-8"> {/* Adjust the column width as per your requirement */}
+      <div className="row">
+        <div className="col-md-3" style={{ float: 'left' }}>
+          <Sidebar />
+        </div>
+        <div className="col-md-9" style={{ float: 'left', paddingLeft: '30px' }}> 
           <div className="d-flex justify-content-between align-items-center mb-4">
-          <h2 style={{ fontWeight: "bold", padding: "10px" }}>List of Categories</h2>
-            <Link to="/category/create" className="btn btn-primary"
-            style={{ fontWeight: "bold", padding: "10px" }}>
+            <h2 style={{ fontWeight: "bold", padding: "10px", paddingBottom: "10px", 
+            margingBottom: "80px" }}>List of Categories</h2>
+            <Link to="/category/create" className="btn btn-primary" 
+            style={{ 
+            fontWeight: "bold", 
+            padding: "10px",
+            marginLeft: "75%",
+          
+             }}>
               Create Category
             </Link>
           </div>
-          <div className="text-center"> {/* Center the table */}
+          <div className="text-center">
             <MDBDataTable
               data={setDataTable()}
               bordered

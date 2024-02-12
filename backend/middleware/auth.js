@@ -2,6 +2,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 
+
 // Define storage and file filter for multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -13,18 +14,20 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith('image/')) {
+  if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
     cb(null, true);
-  } else {
+  } 
+  else {
     cb(new Error('Invalid file type'), false);
   }
 };
+
 
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
   limits: {
-    fileSize: 1024 * 1024 * 5, // Limit file size to 5 MB
+    fileSize: 1024 * 1024 * 100, // Limit file size to 5 MB
   },
 });
 
